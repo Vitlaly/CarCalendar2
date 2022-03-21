@@ -1,0 +1,26 @@
+{%  extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="card card-body">
+<h2 style="text-align: center; padding: 5px"> Hello {{user}},</h2>
+		<h3 style="text-align: center" > please fill the form  </h3>
+			<form action="" method="POST">
+				{% csrf_token %}
+{{ formset.management_form }}
+				{% for field in formset%}
+				<table>
+				<p>{{field}} </p>
+                 {%endfor%}
+				</table>
+					<input type="submit" value="Submit">
+				</form>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}

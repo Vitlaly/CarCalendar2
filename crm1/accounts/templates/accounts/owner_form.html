@@ -1,0 +1,31 @@
+
+{%  extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-4">
+		<h2 style="text-align: center; padding: 5px"> Hello {{owner}},</h2>
+		<h3 style="text-align: center" > please fill the form  </h3>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="card card-body">
+
+			<form action="" method="POST">
+				{% csrf_token %}
+
+					<p><table>
+							{{form}}
+					</table></p>
+				<input type="submit" name="Submit">
+			</form>
+
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

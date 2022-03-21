@@ -1,0 +1,68 @@
+{%  extends 'accounts/main.html' %}
+{% load mathfilters %}
+{% block content %}
+
+	<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>{{car_owner}} </h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="">Update Owner</a>
+			<a class="btn btn-outline-danger  btn-sm btn-block" href="">Delete Owner</a>
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Contact Information</h5>
+			<hr>
+			<p>Email: {{car_owner.email}} </p>
+			<p>Phone: {{car_owner.phone}} </p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Components</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px"> {{components_count}}</h1>
+		</div>
+	</div>
+</div>
+
+
+<br>
+
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+                    <th> Name Component</th>
+					<th>Lifespan component</th>
+					 <th>Status</th>
+					<th>Update</th>
+
+					<th>Delete</th>
+				</tr>
+                 {% for component in components %}
+				<tr>
+					<td>{{component.name}}</td>
+					<td>{{component.resource}}{{component.unit}} </td>
+					<td>{{component.status}}</td>
+
+					<td> <a class= "btn btn-sm btn-info"  href= "{% url 'update_component' component.id %}" >Update</a> </td>
+					<td><a class= "btn btn-sm btn-danger" href="{% url 'delete_component' component.id %}">Delete</a> </td>
+				</tr>
+				{%endfor%}
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

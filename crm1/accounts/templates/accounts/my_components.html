@@ -1,0 +1,79 @@
+{%  extends 'accounts/main.html' %}
+{% load mathfilters %}
+
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Contact Information</h5>
+			<p>Owner: {{owner.name}} </p>
+			<p>Email: {{owner.email}} </p>
+			<p>Phone: {{owner.phone}} </p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Car info</h5>
+			<p> Car model {{owner.car}} </p>
+			<p >Current mileage {{owner.mileage}}</p>
+			<p> Сurrent time: {{now.date}}</p>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'update_owner' %}">Update info</a>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Components created: </h5>
+			<hr>
+			<h2 style="text-align: center">  {{components_count}}  </h2>
+
+		</div>
+	</div>
+
+</div>
+
+	<div class="col-md">
+		<h5>COMPONENTS</h5>
+
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_component' user.id %}" >Create Component</a>
+			<table class="table table-sm">
+				<tr>
+					<th>Name Component</th>
+					<th>Installation</th>
+					<th> Lifespan component</th>
+					<th>Left to replace</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+				 {% for component in components %}
+				<tr>
+
+					<td>{{component.name}}</td>
+                    {% if component.unit == "Km" %}
+						<td> {{component.mileage_installation }} Km</td>
+						<td> {{component.resource}} Km</td>
+						<td> {{ component.mileage_installation|add:component.resource|sub:owner.mileage }} Km </td>
+
+					{% elif component.unit == 'Months'  %}
+					          <td> {{component.date_installation  }} </td>
+					           <td> {{component.resource}} Months</td>
+					<td> {{ component.resource}}</td>
+                                {% endif %}
+
+					<td>{{component.status}}</td>
+					<td> <a class= "btn btn-sm btn-info"  href= "{% url 'update_component' component.id %}" >Update</a> </td>
+					<td><a class= "btn btn-sm btn-danger" href="{% url 'delete_component' component.id %}">Delete</a> </td>
+				</tr>
+				{%endfor%}
+
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
